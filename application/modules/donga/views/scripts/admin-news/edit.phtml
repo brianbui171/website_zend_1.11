@@ -1,0 +1,74 @@
+<?php 
+    $name = $this->formText('name',$this->item['title_news'],array('class'=>'txtmedium'));
+    $current_item_picture = $this->formHidden('current_item_picture',$this->item['img_news_sml']);
+    $linkPic              = FILES_URL . '/news/img_small/' . $this->item['img_news_sml'];
+    $imgPic               = '<img src="' . $linkPic . '">';
+    $picture              = $this->formFile('picture') . '<br>' . $imgPic . $current_item_picture;
+    
+    $options = array('Inactive','Active');
+    $newsHot = $this->formRadio('newshot',$this->item['news_hot'],null,$options,' ');
+    $order = $this->formText('order',$this->item['order'],array('class'=>'short'));
+   
+	$options = $this->slbGroup;
+	$selectGroup = $this->cmsSelect('cat_id',$this->item['news_type'],$options,
+                                    array('style'=>'min-width:200px'));
+                                                  
+    $options = array('Inactive','Active');
+    $status = $this->formRadio('status',$this->item['status'],null,$options,' ');
+    
+    $synopsis = $this->cmsReplaceString($this->item['summary_news']);
+    $synopsis = $this->cmsEditor('synopsis',$synopsis,array('toolbar'=>'Default','language'=>'vi'),'80%');
+        
+    $content = $this->cmsReplaceString($this->item['content_news']);
+    $content = $this->cmsEditor('content',$content,array('toolbar'=>'Default','language'=>'vi'),'80%');
+    
+    $arrInput = array(
+                        array('lable'=>'Tiêu đề bài viết :','input'=>$name),
+                        array('lable'=>'Hình ảnh bài viết :','input'=>$picture,'style'=>'padding-left:175px'),
+                        array('lable'=>'Tin tức hot :','input'=>$newsHot),            
+                        array('lable'=>'Chuyên mục :','input'=>$selectGroup),
+                        array('lable'=>'Trạng thái :','input'=>$status),
+                        array('lable'=>'Sắp xếp :','input'=>$order),
+                        array('lable'=>'Tóm tắt :','input'=>$synopsis,'style'=>'padding-left:175px'),
+                        array('lable'=>'Nội dung :','input'=>$content,'style'=>'padding-left:175px'),                        
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-news/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-news/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset">
+                                    <div class="adminheader">Detail</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

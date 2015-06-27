@@ -1,0 +1,43 @@
+<div id="adminfieldset" style="width: 55%;float: left;height: 283px;">                                
+                                   <div class="adminheader">Hình của Album</div>
+                                   <div class='demonstrations'>
+									<?php 
+									$album_id = 0;		
+									if(count($this->image)>0){
+										foreach ($this->image as $val){
+											$title = $val['title']; 
+										    $linkimg = FILES_URL . '/photo/album-dtl/'.$val['image_actual'];
+										    
+										    $linkimgth = FILES_URL . '/photo/album-dtl/thumbnails/'.$val['image_thumb'];
+											$album_id = $val['album_id'];
+							        ?>
+							          <div class="box-img">
+							          <a href='<?php echo $linkimg;?>' class='lightview' data-lightview-options="skin: 'mac'" data-lightview-group='album-admin'>
+							            <img src='<?php echo $linkimgth; ?>' alt=''/>
+							            <?php echo $title;?>							            
+							          </a> 	
+							          <span class="lv_button_top_delete" id="<?php echo $val['id'];?>" style="display: block;"></span>
+							        </div>
+							        <?php }} ?>
+							        <div class="box-img" style="background-color: #FFFFFF;width: 80px;">
+							            <img id="add-image" src='<?php echo $this->imgUrl . '/file-add-icon.png'; ?>' style="width: 80px;border: none;cursor: pointer;" alt='Thêm ảnh mới'/>							      
+							        </div>
+							        </div>
+							        <table class="adminlist">
+							        <tfoot>
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="container">
+                                                    <div class="pagination">
+                                                        <?php 
+                                                        	$currentUrl = $this->baseUrl($this->currentController . '/ajax-image/album_id/'.$this->arrParams['album_id']);
+                                                        	echo $this->paginationControl($this->panigator,'Sliding','ajax-pagination.phtml',array('currentUrl'=>$currentUrl,'album'=>$this->arrParams['album_id']));
+                                                        ?>
+                                                        <div class="limit"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>					
+                                    </tfoot>
+									</table>
+									</div>

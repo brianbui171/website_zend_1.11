@@ -1,0 +1,6 @@
+[31-May-2012 02:19:39] PHP Notice:  Undefined index:  textinputs in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 21
+[31-May-2012 02:19:39] PHP Warning:  Invalid argument supplied for foreach() in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 29
+[31-May-2012 02:19:39] PHP Warning:  shell_exec() has been disabled for security reasons in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 104
+[31-May-2012 03:12:07] PHP Notice:  Undefined index:  textinputs in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 21
+[31-May-2012 03:12:07] PHP Warning:  Invalid argument supplied for foreach() in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 29
+[31-May-2012 03:12:07] PHP Warning:  shell_exec() has been disabled for security reasons in /home/thptdong/public_html/public/scripts/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php on line 104

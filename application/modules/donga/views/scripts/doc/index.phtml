@@ -1,0 +1,48 @@
+<div class="colum_left">
+	<div class="box_left">	
+		<!-- Box content -->
+			<h2 id="title-lh">Tài nguyên</h2>
+            <div id="br_top"></div>
+            <table class="adminlist">
+                                    <thead>
+                                        <tr>
+                                            <th width="60">STT</th>
+                                            <th width="440">Nhóm tài nguyên</th>
+                                            <th>Số lượng</th>
+                                        </tr>
+                                    </thead>	
+                                    <?php 
+                                    $stt = 1;
+                                    foreach ($this->items as $val){                                    	
+                                    	$doc_name = $val['doc_name'];
+                                    	$link = $this->baseUrl('/donga/doc/view/catid/33/id/'.$val['id']);
+                                    	$so_luong = $val['soluong'];
+                                    ?>								
+                                    <tr class="even">						
+                                        <td align="center"><?php echo $stt;?></td>
+                                        <td align="left"><a href="<?php echo $link;?>"><?php echo $doc_name;?></a></td>
+                                        <td align="center"><?php echo $so_luong;?></td>
+                                    </tr>
+                                    <?php $stt++;}?>
+                                    <!-- BEGIN: PAGINATION (FOOT) -->
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="container">
+                                                    <div class="pagination">
+                                                        <?php 
+                                                        	$currentUrl = $this->baseUrl($this->currentController . '/index');
+                                                        	echo $this->paginationControl($this->panigator,'Sliding','admin-pagination.phtml',array('currentUrl'=>$currentUrl));
+                                                        ?>
+                                                        <div class="limit"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>					
+                                    </tfoot>				<!-- END: PAGINATION (FOOT) -->
+                                </table>
+		<!-- End Box content -->  
+            <div class="clr"></div>
+            <div id="br_bottom"></div>
+	</div>
+</div>

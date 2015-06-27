@@ -1,0 +1,70 @@
+<?php 
+	$linkContact = $this->baseUrl('/donga/contact/index/catid/37');
+	$linkajax = $this->baseUrl('/donga/contact/ajax-captcha');
+	$imgCaptcha = $this->captcha;
+	$captchaId = $this->captcha_id;
+	if(count($this->messageErrorCaptcha)>0){	       
+       $error = '<p class="msg_error">'.$this->messageErrorCaptcha['notCaptchaEqual'].'</P>';
+    }
+    
+    if(count($this->messageErrorForm)>0) {
+    	foreach ($this->messageErrorForm as $key=>$value) {
+    		$errorForm[$key] = '<p class="msg_error">'.$value.'</P>';
+    	}
+    }
+?>
+<div class="colum_left">
+	<div class="box_left">
+		<h2 id="title-lh">Thông tin liên hệ:</h2>
+		<p id="msg-lh">Hãy điền đầy đủ thông tin vào form bên dưới và gửi cho chúng tôi. Chúng tôi sẽ hồi đáp cho bạn trong thời gian sớm nhất. Hoặc liên hệ trực tiếp qua số điện thoại: 08.62697173 - 0902.525.653</p>
+    	<form enctype="multipart/form-data" method="post" action="<?php echo $linkContact;?>">
+        	<div class="lev">
+            	<span>Họ và tên: </span>
+            	<input type="text" value="<?php echo $this->dataRight['fullname']?>" id="fullname" name="fullname">
+            	<?php echo $errorForm['fullname'];?>
+            </div>
+            <div class="lev">
+                <span>Email: </span>
+                <input type="text" value="<?php echo $this->dataRight['email']?>" id="email" name="email">
+                <?php echo $errorForm['email'];?>
+            </div>
+            <div class="lev">
+                <span>Tiêu đề: </span>
+                <input type="text" value="<?php echo $this->dataRight['title']?>" id="title" name="title">
+                <?php echo $errorForm['title'];?>
+            </div>
+            <div class="lev">
+                <span>Nội dung: </span>
+                <textarea cols="80" rows="5" id="message" name="message"><?php echo $this->dataRight['message']?></textarea>
+                <?php echo $errorForm['message'];?>
+            </div>
+            <div class="lev">
+               	<span>Mã xác nhận: </span>
+                <input type="text" class="input txtmedium" value="" id="captcha" name="captcha">    
+                <?php echo $error;?>
+            </div>            	
+            <div class="lev">
+                <div class="image">
+					<input type="hidden" id="captchaID" value="<?php echo $captchaId;?>" name="captchaID">
+					<?php echo $imgCaptcha;?>
+				</div>
+                <div class="refresh" id="refresh"></div>
+            </div>
+            <div class="lev">
+            	<input type="submit" class="submit" value="" id="submit" name="submit">
+            </div>                            
+    	</form>
+	</div>	
+</div>
+<script>
+	$(document).ready(function(){
+		$("#refresh").click(function() {			
+			$.ajax({
+				  url: '<?php echo $linkajax;?>',
+				  success: function(data) {
+				    $('.image').html(data);
+				  }
+				});
+		});		
+	});
+</script>

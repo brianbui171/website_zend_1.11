@@ -1,0 +1,50 @@
+<div class="colum_left">	
+	<div class="box_left">	
+	<h2 id="title-lh"><a href="<?php echo $this->baseUrl('/donga/doc/index/catid/33');?>">Tài nguyên</a> - <?php echo $this->items[0]['doc_name']?></h2>
+    <div id="br_top"></div>
+		<table class="adminlist">
+                                    <thead>
+                                        <tr>
+                                            <th width="60">STT</th>
+                                            <th width="440">Tên tài liệu</th>
+                                            <th>Tải về</th>
+                                            <th>Số lần tải</th>
+                                        </tr>
+                                    </thead>	
+                                    <?php 
+                                    $stt = 1;
+                                    foreach ($this->items as $val){                                    	
+                                    	$doc_name = $val['title'];
+                                    	//$link = $this->baseUrl('/donga/doc/view/id/'.$val['id']);
+                                    	$imgDown = $this->imgUrl . '/121.png';
+                                    	//$linkDown = FILES_URL . '/resource/' . $val['file_path'];
+                                    	$linkDown = $this->baseUrl('/donga/doc/download/id/'.$val['id'].'/file_name/'.$val['file_path']);
+                                    	$luottai = $val['hits'];
+                                    ?>
+                                    <tr class="even">						
+                                        <td align="center"><?php echo $stt;?></td>
+                                        <td align="left"><?php echo $doc_name;?></td>
+                                        <td align="center"><a href="<?php echo $linkDown;?>"><img alt="Tải tài liệu" style="width: 20px;" src="<?php echo $imgDown;?>"></a></td>
+                                        <td align="center"><?php echo $luottai;?></td>
+                                    </tr>
+                                    <?php $stt++;}?>
+                                    <!-- BEGIN: PAGINATION (FOOT) -->
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="container">
+                                                    <div class="pagination">
+                                                        <?php 
+                                                        	$currentUrl = $this->baseUrl($this->currentController . '/view/id/'.$this->items[0]['doc_type']);
+                                                        	echo $this->paginationControl($this->panigator,'Sliding','admin-pagination.phtml',array('currentUrl'=>$currentUrl));
+                                                        ?>
+                                                        <div class="limit"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>					
+                                    </tfoot>				<!-- END: PAGINATION (FOOT) -->
+                                </table>
+	<!-- End Pagination -->  
+	</div>
+</div>

@@ -1,0 +1,355 @@
+<div class="colum_left">
+<?php
+if (count ( $this->cat_intro ) > 0) {
+	?>
+		<div class="box_left">
+<div class="title_box_left"><span class="title_left"> <a id="2"
+	name="tutCategory" href="<?php echo $this->baseUrl ( '/donga/index/category/catid/2' );?>">Giới Thiệu</a> </span>
+<ul>
+	<li><a id="7" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/2/id/7' );?>">Cơ sở vật chất</a></li>
+	<li class="last-child"><a id="8" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/2/id/8' );?>">Nhân sự</a></li>	
+</ul>
+</div>
+<?php
+	foreach ( $this->cat_intro as $val ) {
+		$new_id = $val ['news_id'];
+		$title = $val ['title_news'];
+		$img_sml = FILES_URL . '/news/img_small/' . $val ['img_news_sml'];
+		$summary = $val ['summary_news'];
+		$category = $val ['category_name'];
+		$linkDetail = $this->baseUrl('/donga/index/view-detail/catid/2/id/'. $new_id);
+		?>
+            <div class="box_content">
+<div class="desc_content_left">
+<div class="images_desc"><a id="<?php
+		echo $new_id;
+		?>" name="item"
+	href="<?php echo $linkDetail;?>"><img src="<?php
+		echo $img_sml;
+		?>" alt="<?php
+		echo $title;
+		?>"
+	width="114" height="114"></a></div>
+<ul>
+	<li><a id="<?php
+		echo $new_id;
+		?>" name="item" href="<?php echo $linkDetail;?>"><span><?php
+		echo $title;
+		?></span></a>
+	<p><?php
+		echo $summary;
+		?></p>
+	</li>
+</ul>
+</div>
+<div class="clr"></div>
+
+</div>
+     		<?php
+	}
+	?>
+			<div class="clr"></div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('a[name="item"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'item'}
+		     });
+		});
+		$('a[name="tutCategory"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'category'}
+		     });
+		});
+	});
+</script> <script>
+	$(document).ready(function(){
+		$('a[name="title"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'item'}
+		     });
+		});
+		$('a[name="category"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'category'}
+		     });
+		});
+	});
+</script>	
+<?php
+}
+?>
+<?php
+
+if (count ( $this->cat_program ) > 0) {
+	$index = 0;
+	foreach ( $this->cat_program as $val ) {
+		$new_id = $val ['news_id'];
+		$title = $val ['title_news'];
+		$img_sml = FILES_URL . '/news/img_small/' . $val ['img_news_sml'];
+		$summary = $val ['summary_news'];
+		$category = $val ['category_name'];
+		$linkDetail = $this->baseUrl('/donga/index/view-detail/catid/10/id/'. $new_id);
+		if ($index == 0) {
+			?>
+<div class="box_left">
+<div class="title_box_left"><span class="title_left"> <a id="10"
+	name="category" href="<?php echo $this->baseUrl ( '/donga/index/category/catid/10' );?>">Chương trình học</a> </span>
+<ul>
+	<li><a id="12" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/10/id/12' );?>">Chương trình chính khoá</a></li>
+	<li class="last-child">
+		<a id="14" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/10/id/14' );?>">Chương trình ngoại khoá</a>
+	</li>
+</ul>
+</div>
+<div class="sub_content">
+<div class="sub_content_left">
+<div class="sub"><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a>
+</div>
+<div class="images_sub"><a href="<?php echo $linkDetail;?>"> <img src="<?php
+			echo $img_sml;
+			?>"
+	class="img_thumb_news" width="126" height="89"> </a></div>
+<ul>
+	<li>
+	<p><?php
+			echo $summary;
+			?></p>
+	</li>
+</ul>
+</div>
+        <?php
+		} else {
+			?>
+        <?php
+			if ($index == 1) {
+				?>
+        <div class="clr"></div>
+<div class="list_news">
+<ul>
+            <?php
+			}
+			?>
+	           <li><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a></li>
+	        <?php
+			if ($index == count ( $this->cat_program ) - 1) {
+				?>
+            </ul>
+</div>
+       <?php
+			}
+		}
+		?>
+       <?php
+		if ($index == count ( $this->cat_program ) - 1) {
+			?>
+    </div>
+<div class="clr"></div>
+</div>
+<?php
+		}
+		$index ++;
+	}
+}
+?>
+
+<?php
+if (count ( $this->cat_entrance ) > 0) {
+	$index = 0;
+	foreach ( $this->cat_entrance as $val ) {
+		$new_id = $val ['news_id'];
+		$title = $val ['title_news'];
+		$img_sml = FILES_URL . '/news/img_small/' . $val ['img_news_sml'];
+		$summary = $val ['summary_news'];
+		$category = $val ['category_name'];
+		$linkDetail = $this->baseUrl('/donga/index/view-detail/catid/22/id/'. $new_id);
+		if ($index == 0) {
+			?>
+<div class="box_left">
+<div class="title_box_left"><span class="title_left"> <a id="22"
+	name="category" href="<?php echo $this->baseUrl ( '/donga/index/category/catid/22' );?>">Tuyển sinh</a> </span>
+<ul>
+	<li><a id="23" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/22/id/26' );?>">Thông tin tuyển sinh</a></li>
+	<li><a id="25" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/22/id/25' );?>">Biểu phí & các khoản phải nộp</a></li>
+	<li class="last-child"><a id="26" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/22/id/24' );?>">Lưu ý dành cho phụ huynh</a></li>
+</ul>
+</div>
+<div class="sub_content">
+<div class="sub_content_left">
+<div class="sub"><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a>
+</div>
+<div class="images_sub"><a href="<?php echo $linkDetail;?>"> <img src="<?php
+			echo $img_sml;
+			?>"
+	class="img_thumb_news" width="126" height="89"> </a></div>
+<ul>
+	<li>
+	<p><?php
+			echo $summary;
+			?></p>
+	</li>
+</ul>
+</div>
+        <?php
+		} else {
+			?>
+        <?php
+			if ($index == 1) {
+				?>
+        <div class="clr"></div>
+<div class="list_news">
+<ul>
+            <?php
+			}
+			?>
+	           <li><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a></li>
+	        <?php
+			if ($index == count ( $this->cat_entrance ) - 1) {
+				?>
+            </ul>
+</div>
+       <?php
+			}
+		}
+		?>
+       <?php
+		if ($index == count ( $this->cat_entrance ) - 1) {
+			?>
+    </div>
+<div class="clr"></div>
+</div>
+<?php
+		}
+		$index ++;
+	}
+}
+?>
+<?php
+
+if (count ( $this->cat_news ) > 0) {
+	$index = 0;
+	foreach ( $this->cat_news as $val ) {
+		$new_id = $val ['news_id'];
+		$title = $val ['title_news'];
+		$img_sml = FILES_URL . '/news/img_small/' . $val ['img_news_sml'];
+		$summary = $val ['summary_news'];
+		$category = $val ['category_name'];
+		$linkDetail = $this->baseUrl('/donga/index/view-detail/catid/16/id/'. $new_id);
+		if ($index == 0) {
+			?>
+<div class="box_left">
+<div class="title_box_left"><span class="title_left"> <a id="16"
+	name="category" href="<?php echo $this->baseUrl ( '/donga/index/category/catid/16' );?>">Tin tức - Sự kiện</a> </span>
+<ul>
+	<li><a id="17" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/16/id/21' );?>">Sự kiện</a></li>
+	<li><a id="18" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/16/id/20' );?>">Thực đơn của bé</a></li>
+	<li class="last-child"><a id="21" name="category" href="<?php echo $this->baseUrl ( '/donga/index/category-child/catid/16/id/18' );?>">Thông tin cho mẹ & bé</a></li>
+</ul>
+</div>
+<div class="sub_content">
+<div class="sub_content_left">
+<div class="sub"><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a>
+</div>
+<div class="images_sub"><a href="<?php echo $linkDetail;?>"> <img src="<?php
+			echo $img_sml;
+			?>"
+	class="img_thumb_news" width="126" height="89"> </a></div>
+<ul>
+	<li>
+	<p><?php
+			echo $summary;
+			?></p>
+	</li>
+</ul>
+</div>
+       <?php
+		} else {
+			?>
+        <?php
+			if ($index == 1) {
+				?>
+        <div class="clr"></div>
+<div class="list_news">
+<ul>
+            <?php
+			}
+			?>
+	           <li><a name="title" id="<?php
+			echo $new_id;
+			?>" href="<?php echo $linkDetail;?>"><?php
+			echo $title;
+			?></a></li>
+	        <?php
+			if ($index == count ( $this->cat_news ) - 1) {
+				?>
+            </ul>
+</div>
+       <?php
+			}
+		}
+		?>
+       <?php
+		if ($index == count ( $this->cat_news ) - 1) {
+			?>
+    </div>
+<div class="clr"></div>
+</div>
+<?php
+		}
+		$index ++;
+	}
+}
+?>
+	<script>
+	$(document).ready(function(){
+		$('a[name="title"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'item'}
+		     });
+		});
+		$('a[name="category"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'category'}
+		     });
+		});
+	});
+</script></div>

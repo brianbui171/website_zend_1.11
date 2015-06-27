@@ -1,0 +1,111 @@
+<?php 
+    $doc_name = $this->formText('doc_name',$this->item['doc_name'],array('class'=>'txtmedium'));
+    $options = array('Không hiển thị','Hiển thị');
+    $status = $this->formRadio('status',$this->item['status'],null,$options,' ');
+    $created = $this->formText('created',$this->item['created'],array('class'=>'txtmedium'));
+    $arrInput = array(
+                        array('lable'=>'Tên nhóm tài nguyên :','input'=>$doc_name),
+                        array('lable'=>'Trạng thái hiển thị :','input'=>$status),   
+                        array('lable'=>'Ngày tạo :','input'=>$created)                      
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }    
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-doc/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-doc/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset" style="width: 40%;float: left;margin-right: 20px;height: 283px;">
+                                    <div class="adminheader">Chi tiết</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                <div id="stage">
+                                <div id="adminfieldset" style="width: 55%;float: left;height: 283px;">                                
+                                   <div class="adminheader">Tài nguyên</div>  
+                                    <table class="adminlist">
+                                    <thead>
+                                        <tr>
+                                            <th width="60">ID</th>
+                                            <th width="240">Tên tài liệu</th>
+                                            <th>Tên file</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>	
+                                    <?php 
+                                    foreach ($this->doc_dtl as $val){                                    	
+                                    	$doc_name = $val['title'];
+                                    	$id = $val['id'];
+                                    	$file_path = $val['file_path'];
+                                    	$created = $val['created'];
+                                    	$status = $val['status'];
+                                    	if($status == 1){
+									           $linkStatus = $this->baseUrl($this->currentController . '/status/type/0/id/' . $id);
+									           $status     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png',$linkStatus);
+									       }else{
+									           $linkStatus = $this->baseUrl($this->currentController . '/status/type/1/id/' . $id);
+									           $status     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png',$linkStatus);
+									       }
+									   $linkEdit       = $this->baseUrl($this->currentController . '/edit/id/' . $id);
+								       $linkEditBtn    = $this->cmsIconButton('Edit Item',$this->imgUrl . '/icon_edit.png',$linkEdit);
+								       $linkDelete     = $this->baseUrl($this->currentController . '/delete/id/' . $id);
+								       $linkDeleteBtn  = $this->cmsIconButton('Delete Item',$this->imgUrl . '/icon_del.png',$linkDelete);
+								       $strLinkBtn     = $linkEditBtn . ' ' . $linkDeleteBtn; 
+                                    ?>
+                                    <tr class="even">						
+                                        <td align="center"><?php echo $id;?></td>
+                                        <td align="left"><?php echo $doc_name;?></td>
+                                        <td align="center"><?php echo $file_path;?></td>
+                                        <td align="center"><?php echo $status;?></td>
+                                        <td align="center"><?php echo $created;?></td>
+                                        <td align="center"><?php echo $strLinkBtn;?></td>
+                                    </tr>
+                                    <?php }?>
+                                    <!-- BEGIN: PAGINATION (FOOT) -->
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="container">
+                                                    <div class="pagination">
+                                                        <?php 
+                                                        	$currentUrl = $this->baseUrl($this->currentController . '/edit/id/'.$this->doc_dtl[0]['doc_type']);
+                                                        	echo $this->paginationControl($this->panigator,'Sliding','admin-pagination.phtml',array('currentUrl'=>$currentUrl));
+                                                        ?>
+                                                        <div class="limit"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>					
+                                    </tfoot>				<!-- END: PAGINATION (FOOT) -->
+                                </table>
+							</div>
+                            </div>                               
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

@@ -1,0 +1,124 @@
+<?php 
+	
+	$ssFilter = $this->arrParams['ssFilter'];
+	$imgLink = $this->imgUrl . '/icon';
+	$actionLink = $this->baseUrl($this->currentController . '/filter/type/order');
+	
+	$lblName = $this->cmsLinkSort('Title','album_name',$ssFilter,$imgLink,$actionLink);
+	$lblStatus = $this->cmsLinkSort('Status','status',$ssFilter,$imgLink,$actionLink);
+	$lblImage = $this->cmsLinkSort('Image','image',$ssFilter,$imgLink,$actionLink);
+	$lblCreated = $this->cmsLinkSort('Created','created',$ssFilter,$imgLink,$actionLink);
+	$lblID = $this->cmsLinkSort('ID','id',$ssFilter,$imgLink,$actionLink);
+		
+	//CREATE SEARCH AREA	
+	
+	$keywords = $this->formText('keywords',$ssFilter['keywords'],array('class'=>'txtshort'));
+	$linkSearch = $this->baseUrl($this->currentController . '/filter/type/search/key/1');
+	$btnSearch = $this->formButton('search-now','Search now',
+									array('onclick'=>"OnSubmitForm('" . $linkSearch . "')"));
+	$linkResetSearch = $this->baseUrl($this->currentController . '/filter/type/search/key/0');							
+	$btnResetSearch = $this->formButton('clear-keywords','Clear',
+									array('onclick'=>"OnSubmitForm('" . $linkResetSearch . "')"));
+	$strSearch = $keywords . ' ' . $btnSearch . ' ' . $btnResetSearch;	
+	
+?>
+
+<form name="appForm" method="post" action="">
+                        <?php echo $this->render('admin-album/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-album/sublink/index.php');?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="filters">
+									<div style = "float:left">
+								        <?php echo $strSearch;?>
+								    </div>
+    								<div class="clr"></div>
+								</div>								
+                                <!-- Area 4: In du lieu lay tu database -->
+                                <table class="adminlist">
+                                    <thead>
+                                        <tr>
+                                            <th width="43" ><input type="checkbox" name="checkbox" id="checkbox" onclick="checkedAll()"></th>
+                                            <th><?php echo $lblName;?></th>
+                                            <th width="60"><?php echo $lblStatus;?></th>
+                                            <th width="150"><?php echo $lblImage;?></th>					
+                                            <th width="150"><?php echo $lblCreated;?></th>
+                                            <th width="90">Control</th>
+                                            <th width="34"><?php echo $lblID;?></th>
+                                        </tr>
+                                    </thead>
+									<?php 
+									   foreach ($this->items as $key => $value){
+									       $id             	= $value['id'];
+									       $name           	= $value['album_name'];
+									       $status         	= $value['status'];
+									       $created     	= $value['created'];
+									       $order  			= $value['order'];
+									       $image  	   		= $value['image'];
+									       
+									       if($status == 1){
+									           $linkStatus = $this->baseUrl($this->currentController . '/status/type/0/id/' . $id);
+									           $status     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png',$linkStatus);
+									       }else{
+									           $linkStatus = $this->baseUrl($this->currentController . '/status/type/1/id/' . $id);
+									           $status     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png',$linkStatus);
+									       }
+									       
+									       $linkInfo       = $this->baseUrl($this->currentController . '/info/id/' . $id);
+									       $linkInfoBtn    = $this->cmsIconButton('View Item',$this->imgUrl . '/icon_info.png',$linkInfo);
+									       $linkEdit       = $this->baseUrl($this->currentController . '/edit/id/' . $id);
+									       $linkEditBtn    = $this->cmsIconButton('Edit Item',$this->imgUrl . '/icon_edit.png',$linkEdit);
+									       $linkDelete     = $this->baseUrl($this->currentController . '/delete/id/' . $id);
+									       $linkDeleteBtn  = $this->cmsIconButton('Delete Item',$this->imgUrl . '/icon_del.png',$linkDelete);
+									       $strLinkBtn     = $linkInfoBtn . ' ' . $linkEditBtn . ' ' . $linkDeleteBtn; 
+									       $cid            = $this->formCheckbox('cid[]',$id);
+									      
+									?>
+                                    <tr class="even">						
+                                        <td align="center"><?php echo $cid;?></td>
+                                        <td align="left"><?php echo $name;?></td>
+                                        <td align="center"><?php echo $status;?></td>
+                                        <td align="center"><img src="<?php echo FILES_URL . '/photo/album/' . $image;?>" style="width: 50px;"></td>
+                                        <td align="center"><?php echo $created;?></td>
+                                        <td align="center"><?php echo $strLinkBtn;?></td>
+                                        <td align="center"><?php echo $id;?></td>
+                                    </tr>
+                                    <?php }?>
+                                    <!-- BEGIN: PAGINATION (FOOT) -->
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="container">
+                                                    <div class="pagination">
+                                                        <?php 
+                                                        	$currentUrl = $this->baseUrl($this->currentController . '/index');
+                                                        	echo $this->paginationControl($this->panigator,'Sliding','admin-pagination.phtml',array('currentUrl'=>$currentUrl));
+                                                        ?>
+                                                        <div class="limit"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>					
+                                    </tfoot>				<!-- END: PAGINATION (FOOT) -->
+                                </table>
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

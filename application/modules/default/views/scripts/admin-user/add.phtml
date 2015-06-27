@@ -1,0 +1,72 @@
+<?php 
+    $user_name = $this->formText('user_name',$this->dataRight['user_name'],array('class'=>'txtmedium'));
+    $avatar = $this->formFile('user_avatar');
+    $password = $this->formPassword('password','',array('class'=>'txtshort'));
+    $email = $this->formText('email',$this->dataRight['email'],array('class'=>'txtmedium'));
+    $firstName = $this->formText('first_name',$this->dataRight['first_name'],array('class'=>'txtmedium'));
+    $lastName = $this->formText('last_name',$this->dataRight['last_name'],array('class'=>'txtmedium'));
+    $birthDay = $this->formText('birth_day',$this->dataRight['birth_day'],array('class'=>'txtshort'));
+    
+    $options = $this->slbGroup;
+	$selectGroup = $this->formSelect('group_id',$this->dataRight['group_id'],
+	                                    array('style'=>'min-width:200px'),
+	                                    $options);
+   
+    $options = array('Inactive','Active');
+    $status = $this->formRadio('status',$this->dataRight['status'],null,$options,' ');
+    
+    $sign = $this->cmsReplaceString($this->dataRight['sign']);
+    $sign = $this->cmsEditor('sign',$sign,array('toolbar'=>'Default','language'=>'vi'),'80%');
+    
+    $arrInput = array(
+                        array('lable'=>'User name :','input'=>$user_name),
+                        array('lable'=>'Avatar :','input'=>$avatar),
+                        array('lable'=>'Password :','input'=>$password),   
+                        array('lable'=>'Email :','input'=>$email),
+                        array('lable'=>'Group name :','input'=>$selectGroup),                     
+                        array('lable'=>'First name :','input'=>$firstName),
+                        array('lable'=>'Last name :','input'=>$lastName),
+                        array('lable'=>'Birthday :','input'=>$birthDay),
+                        array('lable'=>'Status :','input'=>$status),
+                        array('lable'=>'Sign :','input'=>$sign,'style'=>'padding-left:175px'),
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-user/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-user/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset">
+                                    <div class="adminheader">Detail</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

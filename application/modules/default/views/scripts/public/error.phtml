@@ -1,0 +1,39 @@
+<?php 
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+    <?php echo $this->render('public/toolbar/index.php');?>
+    <div class="clr"></div>
+    
+    <!-- BEGIN: CONTENT -->
+    <div id="element-box">
+        <div class="t">
+            <div class="t">
+                <div class="t"></div>
+            </div>
+        </div>
+        <div class="m">
+            <!-- BEGIN: ELEMENT BOX -->
+    		<div id="adminfieldset">
+                <div class="adminheader">Detail</div>
+               <?php echo $error;?>
+           </div>
+    
+            <!-- Area 4: In du lieu lay tu database -->
+            
+            <!-- Area 4: In du lieu lay tu database - End -->
+    
+            <!-- END: ELEMENT BOX -->	
+          <div class="clr"></div>
+        </div>
+        <div class="b">
+            <div class="b">
+                <div class="b"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END: 	CONTENT -->
+</form>

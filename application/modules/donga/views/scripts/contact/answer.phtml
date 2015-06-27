@@ -1,0 +1,42 @@
+<div class="colum_left">
+	<h2 id="title-lh">Hỏi - Đáp:</h2>
+	<p id="msg-lh">Để biết thêm thông tin về nhà trường hoặc có vấn đề cần giải đáp, xin vui lòng  <a href="<?php echo $this->baseUrl ( '/donga/contact/index/catid/37/id/40' );?>">Bấm đây</a> để gửi câu hỏi đến chúng tôi. Câu hỏi sẽ được trả lời ở chuyên mục này và hồi đáp đến email của quý vị.</p>	
+	<div class="box_left">
+	<?php 
+		foreach ($this->items as $val){			
+			$news_id = $val['qa_id'];
+			$news_title = $val['title'];
+			$summary = $val['question'];
+			$created = $val['created'];
+			$linkDetail = $this->baseUrl('/donga/contact/answer-detail/catid/'.$this->arrParam['catid'].'/id/'. $news_id);
+	?>
+		<div class="box_content">
+			<div class="desc_content_left">
+        		<div class="images_desc">
+        			<a href="<?php echo $linkDetail;?>" name="title" id="<?php echo $news_id;?>">
+        				<img height="114" width="114" alt="" src="<?php echo $this->imgUrl;	?>/hoidap.jpg">
+        			</a>
+        		</div>
+                <ul>
+                	<li>
+	                	<a href="<?php echo $linkDetail;?>" name="title" id="<?php echo $news_id;?>">
+	                		<span><?php echo $news_title;?></span>
+	                	</a>
+	                	<p><?php echo $summary;?></p>
+                	</li>
+                </ul>
+            </div>
+			<div class="clr"></div>
+			<div class="related">
+				<ul><li><img alt="date" src="<?php echo $this->imgUrl?>/icon_date.png"> <?php echo $created;?></li></ul>
+			</div>
+		</div>
+		<?php }?>
+		<!-- Pagination area -->
+		<?php 
+             $currentUrl = $this->baseUrl($this->currentController . '/category-child/catid/' . $this->arrParam['catid'].'/id/'.$this->arrParam['id']);
+             echo $this->paginationControl($this->panigator,'Sliding','pagination.phtml',array('currentUrl'=>$currentUrl));
+        ?>
+		<!-- End Pagination -->
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="colum_left">
+	<div class="box_left">	
+	
+		<!-- Box content -->
+			<h2 id="title-lh">Thư viện ảnh</h2>
+            <div id="br_top"></div>
+            <div class="box_content_pic">                 
+                <ul id="gallery">
+                <?php 
+					if(count($this->items)>0){		
+						foreach ($this->items as $val){
+							$linkImg = FILES_URL . '/photo/album/' . $val['image'];
+							$linkDetail = $this->baseUrl('/donga/album/view/catid/0/album_id/'.$val['id']);
+							$title = $val['album_name'];
+					?>			
+                    <li id= 'item-1' data-itemid='1'>
+                    	<div id="sort">
+                    		<a href="<?php echo $linkDetail;?>" name="title" id="1">
+                        		<img src="<?php echo $linkImg;?>" style="width: 188px;height: 140px;"/>
+                        		<?php echo $title;?>
+                        	</a>
+                        </div>
+					</li>  
+					<?php }}?>                   
+        		</ul>
+            </div>
+		<!-- End Box content -->  
+            <div class="clr"></div>
+            <div id="br_bottom"></div>		
+	<!-- Pagination area -->
+		<?php 
+             $currentUrl = $this->baseUrl($this->currentController . '/index/catid/0');
+             echo $this->paginationControl($this->panigator,'Sliding','pagination.phtml',array('currentUrl'=>$currentUrl));
+        ?>
+	<!-- End Pagination -->  
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<?php 
+    $name = $this->item['category_name'];
+    $linkPic     = FILES_URL . '/group/avatar/img100x100/' . $this->item['picture'];
+    $picture = '<img src="' . $linkPic . '">';
+    $order = $this->item['order'];
+    $parents = '';
+    if($this->item['status'] == 0){
+        $status     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png') . ' Inactive';
+    }else{
+        $status     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png') . ' Active';        
+    }
+    $created = $this->item['created'];
+    $created_by = $this->item['created_by'];
+    $modified = $this->item['modified'];
+    $modified_by = $this->item['modified_by'];
+    
+    $arrInput = array(
+                        array('lable'=>'Name :','input'=>$name),
+                        array('lable'=>'Picture :','input'=>$picture),
+                        array('lable'=>'Parents :','input'=>$parents),   
+                        array('lable'=>'Status :','input'=>$status),
+                        array('lable'=>'Order :','input'=>$order),
+                        array('lable'=>'Created :','input'=>$created),
+                        array('lable'=>'Created by :','input'=>$created_by),
+                        array('lable'=>'Modified :','input'=>$modified),
+                        array('lable'=>'Modified by :','input'=>$modified_by),
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-category/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-category/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset">
+                                    <div class="adminheader">Detail</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

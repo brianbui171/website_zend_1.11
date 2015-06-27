@@ -1,0 +1,53 @@
+<div class="colum_left">
+	<div class="box_left">
+	<?php 
+		foreach ($this->items as $val){			
+			$news_id = $val['news_id'];
+			$news_title = $val['title_news'];
+			$summary = $val['summary_news'];
+			$created = $val['created'];
+			$linkDetail = $this->baseUrl('/donga/index/view-detail/catid/'.$this->arrParam['catid'].'/id/'. $news_id);
+			$img_news_sml = FILES_URL . '/news/img_small/' . $val['img_news_sml'];		
+	?>
+		<div class="box_content">
+			<div class="desc_content_left">
+        		<div class="images_desc">
+        			<a href="<?php echo $linkDetail;?>" name="title" id="<?php echo $news_id;?>">
+        				<img height="114" width="114" alt="" src="<?php echo $img_news_sml;?>">
+        			</a>
+        		</div>
+                <ul>
+                	<li>
+	                	<a href="<?php echo $linkDetail;?>" name="title" id="<?php echo $news_id;?>">
+	                		<span><?php echo $news_title;?></span>
+	                	</a>
+	                	<p><?php echo $summary;?></p>
+                	</li>
+                </ul>
+            </div>
+			<div class="clr"></div>
+			<div class="related">
+				<ul><li><img alt="date" src="<?php echo $this->imgUrl?>/icon_date.png"> <?php echo $created;?></li></ul>
+			</div>
+		</div>
+		<?php }?>
+		<!-- Pagination area -->
+		<?php 
+             $currentUrl = $this->baseUrl($this->currentController . '/category-child/catid/' . $this->arrParam['catid'].'/id/'.$this->arrParam['id']);
+             echo $this->paginationControl($this->panigator,'Sliding','pagination.phtml',array('currentUrl'=>$currentUrl));
+        ?>
+		<!-- End Pagination -->
+	</div>
+	<script>
+	$(document).ready(function(){
+		$('a[name="title"]').click(function(e){
+			var id = $(this).attr('id');
+			 $.ajax({
+		            type:"POST",
+		            url :"/donga/index/item-hits",
+		            data : {id : id, type : 'item'}
+		     });
+		});
+	});
+	</script>
+</div>

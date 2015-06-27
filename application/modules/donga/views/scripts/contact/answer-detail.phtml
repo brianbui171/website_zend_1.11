@@ -1,0 +1,47 @@
+<div class="colum_left">
+	<div class="box_left_content">
+		<div class="box_content">
+			<h1 class="sub_title"><?php echo $this->item['title']?></h1>
+			<div class="related_show_news">
+				<ul>
+					<li class="active"><img alt="date" src="<?php echo $this->imgUrl;?>/icon_date.png"><?php echo $this->item['created']?></li>
+				</ul>
+				<div style="float:right;" class="share-social">
+					<a onfocus="this.blur();" title="Chia sẻ trên Twitter" href="#" target="_blank" id="twitter" rel="nofollow">
+							<img width="17" height="17" class="sociable-hovers" alt="Twitter" title="Chia sẻ trên Twitter" src="<?php echo $this->imgUrl;?>/twitter.png">
+					</a> 
+					<a onfocus="this.blur();" title="Chia sẻ trên Facebook" href="#" target="_blank" id="twitter" rel="nofollow">
+							<img width="17" height="17" class="sociable-hovers" alt="Facebook" title="Chia sẻ trên Facebook" src="<?php echo $this->imgUrl;?>/facebook.png">
+					</a> 
+					<a title="Chia sẻ trên Google Bookmarks" onfocus="this.blur();" href="#" target="_blank" id="google" rel="nofollow">
+					  <img width="17" height="17" class="sociable-hovers" alt="Google Bookmarks" title="Chia sẻ trên Google Bookmarks" src="<?php echo $this->imgUrl;?>/googlemark.png">
+					</a>					
+				</div>
+			</div>		
+			<div class="content_main">
+				<!-- Nội dung bài viết -->
+				<h3>Câu hỏi:</h3>
+				<?php echo $this->item['question']?>
+				<h3>Trả lời:</h3>
+				<?php echo $this->item['answer']?>
+			</div>
+		</div>
+		<div align="center" class="adv">
+		</div>	
+		<?php if(count($this->itemRelate)>0){?>	
+		<div class="cate_posts">
+	    	<div class="sub_title_posts">Các câu hỏi khác</div>
+	        <ul style="width: 100%">
+	        <?php 
+	        	foreach ($this->itemRelate as $val){
+	        		$news_id = $val['qa_id'];
+	        		$question = $val['question'];
+	        		$linkDetail = $this->baseUrl('/donga/contact/answer-detail/catid/'.$this->arrParam['catid'].'/id/'. $news_id);
+	        	?>
+	        	<li style="max-width: 100%"><a href="<?php echo $linkDetail;?>" name="title" id="<?php echo $news_id;?>"><?php echo $question;?></a></li>
+	        <?php }?>
+	        </ul>
+		</div>
+		<?php }?>
+	</div>	
+</div>

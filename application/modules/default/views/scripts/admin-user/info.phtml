@@ -1,0 +1,75 @@
+<?php 
+    $user_name = $this->item['user_name'];
+    
+    if(!empty($this->item['user_avatar'])){
+    $avatar = FILES_URL . '/users/img100x100/' . $this->item['user_avatar'];
+    $avatar = '<img src="' . $avatar . '">';
+    }
+    
+    $email = $this->item['email'];
+    $firstName = $this->item['first_name'];
+    $lastName = $this->item['last_name'];
+    $birthDay = $this->item['birthday'];    
+	$selectGroup = $this->item['group_name'];
+   
+    if($this->item['status'] == 0){
+        $status     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png') . ' Inactive';
+    }else{
+        $status     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png') . ' Active';        
+    }
+    
+    $register_date = $this->item['register_date'];
+    $sign = $this->cmsReplaceString($this->item['sign']);   
+    
+    $arrInput = array(
+                        array('lable'=>'User name :','input'=>$user_name),
+                        array('lable'=>'Avatar :','input'=>$avatar),  
+                        array('lable'=>'Email :','input'=>$email),
+                        array('lable'=>'Group name :','input'=>$selectGroup),                     
+                        array('lable'=>'First name :','input'=>$firstName),
+                        array('lable'=>'Last name :','input'=>$lastName),
+                        array('lable'=>'Birthday :','input'=>$birthDay),
+                        array('lable'=>'Status :','input'=>$status),
+                        array('lable'=>'Registed :','input'=>$register_date),
+                        array('lable'=>'Sign :','input'=>$sign,'style'=>'padding-left:175px'),
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-user/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-user/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset">
+                                    <div class="adminheader">Detail</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

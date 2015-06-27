@@ -1,0 +1,30 @@
+<div class="colum_left">	
+	<div class="box_left">	
+	<h2 id="title-lh"><a href="<?php echo $this->baseUrl('/donga/album/index/catid/0');?>">Thư viện ảnh</a> - <?php echo $this->items[0]['album_name']?></h2>
+    <div id="br_top"></div>
+		<div class='demonstrations'>
+		<?php 
+		$album_id = 0;		
+		if(count($this->items)>0){
+			foreach ($this->items as $val){
+				$title = $val['title']; 
+			    $linkimg = FILES_URL . '/photo/album-dtl/'.$val['image_actual'];
+			    
+			    $linkimgth = FILES_URL . '/photo/album-dtl/thumbnails/'.$val['image_thumb'];
+				$album_id = $val['album_id'];
+        ?>
+          <a href='<?php echo $linkimg;?>' class='lightview' data-lightview-options="skin: 'mac'" data-lightview-group='album'>
+            <img src='<?php echo $linkimgth; ?>' alt=''/>
+          </a> 
+        <?php }} ?>
+        </div>
+        <div class="clr"></div>
+        <div id="br_bottom"></div>
+		<!-- Pagination area -->
+		<?php 
+             $currentUrl = $this->baseUrl($this->currentController . '/view/catid/0/album_id/'.$album_id);
+             echo $this->paginationControl($this->panigator,'Sliding','pagination.phtml',array('currentUrl'=>$currentUrl));
+        ?>
+	<!-- End Pagination -->  
+	</div>
+</div>

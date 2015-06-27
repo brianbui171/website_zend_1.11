@@ -1,0 +1,7 @@
+[31-May-2012 02:18:55] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[31-May-2012 03:11:09] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[16-Jun-2012 22:03:58] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[16-Jun-2012 22:03:58] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[27-Jun-2012 23:28:00] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[27-Jun-2012 23:28:00] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2
+[22-Jul-2012 11:59:15] PHP Fatal error:  Using $this when not in object context in /home/thptdong/public_html/public/templates/admin/system/index.phtml on line 2

@@ -1,0 +1,54 @@
+<?php
+echo $this->render ( 'html/header.php' );
+?>
+<div class="wrapage" align="left">
+	<?php
+	echo $this->blkMessage ();
+	?>
+	<div class="clr"></div>
+<div class="content"><!-- Begin slideshow news -->
+<?php
+echo $this->blkSlideShowNews ();
+?>    
+<!-- End slideshow news --> <!-- Begin hot news -->
+	<?php
+	echo $this->blkInfoHightlight ();
+	?>
+<!-- End hot news --> <!-- Begin Advert --> 
+    <?php
+    	$arrParam = $this->arrParam;
+		$flagShow  = false;
+		if($arrParam['action'] == 'index' && $arrParam['controller'] == 'index'){
+			$flagShow  = true;
+		}
+		if($flagShow == true) {
+			echo $this->blkAdvert ();
+		}
+	?>
+<!-- ----------------End Advert --> <!-- Begin Colum left --> 	
+	<?php
+	echo $this->layout ()->content;
+	?>
+<!-- End Colum left -->
+<div class="colum_right">
+	<?php
+		if($flagShow == false) {
+			echo $this->blkAdvert ();
+		}
+	?>
+	<?php
+	echo $this->blkTopView ();
+	?>			
+	<div class="clr"></div>
+	<?php
+	echo $this->blkImgBanner ();
+	?>
+	</div>
+<!-- end colum_right --></div>
+<div class="clr"></div>
+</div>
+<!-- end wrapage -->
+</div>
+<?php
+echo $this->render ( 'html/footer.php' );
+?>

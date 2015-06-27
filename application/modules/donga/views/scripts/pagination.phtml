@@ -1,0 +1,52 @@
+<?php
+/*echo 'This is view of Paginator';
+echo $this->currentUrl;*/
+
+	$linkStart 		= $this->currentUrl . '/page/' . $this->first;
+	
+	$linkPrevious = '#';
+	if(isset($this->previous)){
+		$linkPrevious 	= $this->currentUrl . '/page/' . $this->previous;
+	}
+	$linkNext = '#';
+	if(isset($this->next)){
+		$linkNext 		= $this->currentUrl . '/page/' . $this->next;
+	}
+	
+	$linkEnd 		= $this->currentUrl . '/page/' . $this->last;
+	
+	$strPage  = '';
+	foreach ($this->pagesInRange as $key){
+		if($this->current == $key){
+			$strPage .= '<li class="active">'.$key.'</li>';
+		}else{
+			$linkPage = $this->currentUrl . '/page/' . $key;
+			$strPage .= '<li><a href="' . $linkPage . '">' . $key .'</a></li>'; 
+		}
+	}
+?>
+<?php if($this->last > 1){?>
+<div class="current_page">
+	<ul>
+	<?php if($this->current > 2){?>
+		<li class="first_current">
+			<a title="Start" href="<?php echo $linkStart;?>"><span>&nbsp;</span></a>
+		</li>
+	<?php }?>
+	<?php if($this->current > 1){?>
+		<li class="prev_current">
+			<a title="Prev" href="<?php echo $linkPrevious;?>"><span>&nbsp;</span></a>
+		</li>
+	<?php }?>
+		<?php echo $strPage;?>
+	<?php if($this->current < $this->last){?>
+		<li class="next_current">
+			<a title="Next" href="<?php echo $linkNext;?>"><span>&nbsp;</span></a>
+		</li>	
+		<li class="last_current">
+			<a title="End" href="<?php echo $linkEnd;?>"><span>&nbsp;</span></a>
+		</li>
+	<?php }?>
+	</ul>
+</div>
+<?php }?>

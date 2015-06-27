@@ -1,0 +1,62 @@
+<?php 
+	/*$statusValue = 1;
+	if(isset($this->dataRight['status'])){
+		$statusValue = $this->dataRight['status'];
+	}*/
+	
+    $album_name = $this->formText('album_name',$this->dataRight['album_name'],array('class'=>'txtmedium'));
+    $options = array('Không hiển thị','Hiển thị');
+    //$status = $this->formRadio('status',$statusValue,null,$options,' ');
+    
+    $current_item_picture = $this->formHidden('current_item_picture',$this->item['image']);
+    $linkPic              = FILES_URL . '/photo/album/' . $this->item['image'];
+    $imgPic               = '<img src="' . $linkPic . '" style="width:200px;">';
+    $picture              = $this->formFile('picture') . '<br>' . $imgPic . $current_item_picture;
+    $order = $this->formText('order',$this->dataRight['order'],array('class'=>'short'));
+    
+    $arrInput = array(
+                        array('lable'=>'Tên album :','input'=>$album_name),
+                        array('lable'=>'Hình ảnh đại diện :','input'=>$picture,'style'=>'padding-left:175px'),
+                        //array('lable'=>'Trạng thái hiển thị :','input'=>$status),   
+                        array('lable'=>'Sắp xếp :','input'=>$order)                      
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-album/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-album/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset" style="width: 40%;float: left;margin-right: 20px;height: 283px;">
+                                    <div class="adminheader">Chi tiết</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                                            
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>

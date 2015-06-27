@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+/* CSS Document */
+.wrapage .content .colum_right #tabs div .top_rate  li {
+	height: 15px;
+	margin: 0px;
+	margin-bottom: 17px;
+	display: table;
+	padding-top: 0px;
+	background: none;
+}

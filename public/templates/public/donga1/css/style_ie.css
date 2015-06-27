@@ -1,0 +1,87 @@
+@CHARSET "UTF-8";
+.wrapage .content .list_post ul li {
+    background: url("../images/icon_list_post.png") no-repeat scroll left 5px transparent;
+    border-bottom: 1px dotted #666666;
+    margin-left: 8px;
+    max-height: 38px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    width: 197px;
+}
+.wrapage .content .list_post ul li a {
+    line-height: 15px;
+}
+.wrapage .content .box_left .title_box_left ul li {
+    float: left;
+    margin-top: 5px;
+}
+.wrapage .content .advert ul li {
+    margin-bottom: 5px;
+}
+.wrapage .content .colum_right #tabs div .top_rate li {
+    background: none repeat scroll 0 0 transparent;
+    margin: 0 0 12px;
+    max-height: 40px;
+    min-height: 30px;
+    overflow: hidden;
+    padding-top: 0;
+}
+.wrapage .content .colum_right #tabs div .comment {
+    float: left;
+    height: auto;
+    overflow: hidden;
+    text-align: left;
+}
+.wrapage .content .colum_right #tabs div .popular {
+    display: table;
+    height: auto;
+    text-align: left;
+}
+.wrapage .content .colum_right #tabs div .icon ul {
+    background: none repeat scroll 0 0 transparent;
+    margin-top: -5px;
+}
+.wrapage .content .colum_right #tabs div .comment li {
+    background: none repeat scroll 0 0 transparent;
+    display: inline;
+    float: left;
+    margin: 0 0 10px;
+    width: 100%;
+}
+.wrapage .colum_left .register .text_input input {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #828282;
+    color: #333333;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    padding-left: 10px;
+    padding-top: 3px;
+    width: 270px;
+}
+.wrapage .content .form_register form .left .lev input[type="text"], .wrapage .content .form_register form .left .lev input[type="password"] {
+    background: url("../images/bag_input_register.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    float: left;
+    height: 23px;
+    outline: medium none;
+    padding-left: 8px;
+    padding-top: 5px;
+    width: 216px;
+}
+.wrapage .content .colum_right .login form .text {
+    height: 23px;
+    padding-top: 5px;
+}
+.wrapage .content .box_left form div input {
+    height: 17px;
+    padding-top: 5px;
+}
+.wrapage .content .colum_right .box_advert ul li {
+    margin-bottom: 5px;
+}
+.wrapage .content .box_left_content .comment_box form .lev input[type="text"] {
+    height: 18px;
+    padding-top: 4px;
+}

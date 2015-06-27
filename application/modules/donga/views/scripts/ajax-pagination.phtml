@@ -1,0 +1,221 @@
+<?php
+/*echo 'This is view of Paginator';
+echo $this->currentUrl;*/
+
+	$linkStart 		= $this->currentUrl . '/page/' . $this->first;
+	
+	$linkPrevious = '#';
+	if(isset($this->previous)){
+		$linkPrevious 	= $this->currentUrl . '/page/' . $this->previous;
+	}
+	$linkNext = '#';
+	if(isset($this->next)){
+		$linkNext 		= $this->currentUrl . '/page/' . $this->next;
+	}
+	
+	$linkEnd 		= $this->currentUrl . '/page/' . $this->last;
+	
+	$strPage  = '';
+	foreach ($this->pagesInRange as $key){
+		if($this->current == $key){
+			$strPage .= '<span>' . $key .'</span>';
+		}else{
+			$linkPage = $this->currentUrl . '/page/' . $key;
+			$strPage .= '<a name="paginator" id="'.$linkPage.'" href="#">' . $key .'</a>'; 
+		}
+	}
+
+	$page = 'Page ' . $this->current .' Of ' . $this->last;
+?>
+
+<div class="button2-right">
+	<div class="start">		
+		<a name="paginator" id="<?php echo $linkStart;?>" href="#" title="Start">Start</a>		
+	</div>
+</div>
+
+<div class="button2-right">
+	<div class="prev">
+		<a name="paginator" id="<?php echo $linkPrevious;?>" href="#" title="Prev" >Prev</a>
+	</div>
+</div>
+
+<div class="button2-left">
+	<div class="page">
+		<?php echo $strPage;?>
+	
+	</div>
+</div>
+
+<div class="button2-left">
+	<div class="end">
+		<a name="paginator" id="<?php echo $linkNext;?>" href="#" title="Next" >Next</a>
+	</div>
+</div>
+
+<div class="button2-left">
+	<div class="end">
+		<a name="paginator" id="<?php echo $linkEnd;?>" href="#" title="End" >End</a>
+	</div>
+</div>
+<div class="limit">
+	<?php echo $page;?>
+</div>
+<div id="dialog-form" title="Add new picture">
+	<p class="validateTips">Tất cả ô nhập liệu là bắt buộc.</p>
+	<input type="file" name="file_upload" id="file_upload"/>
+    <!--<a href="javascript:$('#file_upload').uploadify('upload')">Upload Files</a>-->
+	<form id="form-add">
+    	<fieldset>
+			<label class="lbl_dialog" for="title">Tên file hình</label>
+			<input class="input_dialog" type="text" name="image_name" id="image_name" value="" class="text ui-widget-content ui-corner-all" /> 
+	        <label class="lbl_dialog" for="title">Tiêu đề</label>
+			<input class="input_dialog" type="text" name="title" id="title" value="" class="text ui-widget-content ui-corner-all" />
+		</fieldset>
+	</form>
+</div>
+<script>
+	$(document).ready(function(){
+		$('a[name="paginator"]').click(function(e){
+			var url = $(this).attr('id');
+			if(url != "#"){
+			 $.ajax( {
+	             url:url,
+	             success:function(data) {
+	                $('#stage').html(data);
+	             }
+	          });	
+			}								          
+		});	
+
+		$(".lv_button_top_delete").click(function() {
+            var lieffect = $(this).parent("div.box-img");
+            var id = $(this).attr('id');                                    
+            
+            $.confirm({
+	             'title'	: 'Delete Confirmation',
+	             'message'	: 'Bạn có muốn xoá hình vừa chọn không?',
+	             'buttons'	: {
+                 'Yes'	    : {
+                 'class'	: 'blue',
+			     'action'	: function(){
+                                    lieffect.animate({opacity: 0.5 }, "slow")
+                                	.slideUp('slow', function() {
+                                	   $(this).remove();
+                                    });
+                                    
+                                    $.ajax({                                        
+                    		            type:"POST",
+                    		            url :"<?php echo $this->baseUrl('/donga/admin-album/delete-image');?>",
+                    		            data : {id : id, album_id : <?php echo $this->album;?>},
+                    		            success:function(data){
+                        		            //alert(data);
+				$('#stage').html(data).fadeIn("slow");
+                    		            }
+                    		     	});
+                                }
+		                    },
+		         'No'	: {
+	             	'class'	: 'gray',
+			     	'action': function(){}
+                }
+	             }
+             });
+	        });
+	});
+</script>
+<!-- Form add new images - start -->
+<script type="text/javascript">
+
+    $(function() {
+        $("#file_upload").uploadify({
+            'swf'             : '<?php echo JWPLAYER_URL.'/';?>uploadify.swf',
+            'uploader'        : '<?php echo $this->baseUrl('/donga/upload/upload-image');?>',
+            'auto'            : true,
+            'onUploadSuccess' : function(file, data, response) {
+                $("#image_name").val(data);
+            }
+        });
+    });
+</script>
+<script>
+	$(function() {
+		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+        var name = $( "#image_name" ),
+		order = $( "#title" ),
+		allFields = $( [] ).add( name ).add( order ),
+		tips = $( ".validateTips" );
+
+		function updateTips( t ) {
+			tips
+				.text( t )
+				.addClass( "ui-state-highlight" );
+			setTimeout(function() {
+				tips.removeClass( "ui-state-highlight", 1500 );
+			}, 500 );
+		}
+
+		function checkLength( o, n, min, max ) {
+			if ( o.val().length > max || o.val().length < min ) {
+				o.addClass( "ui-state-error" );
+				updateTips( "Số ký tự của " + n + " phải trong khoảng " +
+					min + " và " + max + "." );
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function checkRegexp( o, regexp, n ) {
+			if ( !( regexp.test( o.val() ) ) ) {
+				o.addClass( "ui-state-error" );
+				updateTips( n );
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 400,
+			width: 350,
+			modal: true,
+			buttons: {
+				"Thêm ảnh mới": function() {
+					var bValid = true;
+					allFields.removeClass( "ui-state-error" );
+
+					bValid = bValid && checkLength( name, "Picture", 3, 26 );
+                    bValid = bValid && checkLength( order, "Order", 3, 26 );
+
+					bValid = bValid && checkRegexp( name, /^[0-9a-z_]([0-9a-z_.])+$/i, "Tên file ảnh chỉ có thể chứa ký tự a-z, 0-9, _." );
+				    //bValid = bValid && checkRegexp( order, /^[0-9]/i, "Order may consist of 0-9." );
+                
+					if ( bValid ) { 
+						/*Start ajax*/                       
+                        $.post("<?php echo $this->baseUrl('/donga/admin-album/save-image');?>",{image_name:$("#image_name").val(),title:$("#title").val(),album_id : <?php echo $this->album;?>}, function(dgallery){
+                            $('#stage').html(dgallery).fadeIn("slow");
+                        });  
+                        $( this ).dialog( "close" );   
+					}
+				},
+				"Huỷ": function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#add-image" )
+			.button()
+			.click(function() {
+				$( "#dialog-form" ).dialog( "open" );
+			});
+	});
+</script>
+<!-- Form add new images - End -->

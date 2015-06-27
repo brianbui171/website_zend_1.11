@@ -1,0 +1,82 @@
+<?php 
+    $name             = $this->item['TITLE_NEWS'];
+    $linkPic          = FILES_URL . '/news/img_small/' . $this->item['IMG_NEWS_SML'];
+    $imgPic           = '<img src="' . $linkPic . '">';
+    $picture          = $imgPic;
+    $order            = $this->item['ORDER'];
+	$selectGroup      = $this->item['category'];
+	$created          = $this->item['CREATED'];
+    $created_by       = $this->item['creater'];
+    $modified         = $this->item['MODIFIED'];
+	$modified_by      = $this->item['modifier'];
+    
+    if($this->item['NEWS_HOT'] == 0){
+        $newsHot     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png') . ' Inactive';
+    }else{
+        $newsHot     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png') . ' Active';        
+    }
+    
+    if($this->item['STATUS'] == 0){
+        $status     = $this->cmsIconButton('Inactive Item',$this->imgUrl . '/icon/inactive.png') . ' Inactive';
+    }else{
+        $status     = $this->cmsIconButton('Active Item',$this->imgUrl . '/icon/active.png') . ' Active';        
+    }
+    
+    $synopsis = $this->cmsReplaceString($this->item['SUMARY_NEWS']);
+    
+    $content = $this->cmsReplaceString($this->item['CONTENT_NEWS']);
+    
+    $arrInput = array(
+                        array('lable'=>'Tiêu đề :','input'=>$name),
+                        array('lable'=>'Hình bài viết :','input'=>$picture,'style'=>'padding-left:175px'),
+                        array('lable'=>'Chuyên mục :','input'=>$selectGroup),
+                        array('lable'=>'Trạng thái :','input'=>$status),
+                        array('lable'=>'Tin hot :','input'=>$newsHot),
+                        array('lable'=>'Xắp xếp :','input'=>$order),
+                        array('lable'=>'Ngày tạo :','input'=>$created),
+                        array('lable'=>'Người tạo :','input'=>$created_by),
+                        array('lable'=>'Ngày sửa :','input'=>$modified),
+                        array('lable'=>'Người sửa :','input'=>$modified_by),
+                        array('lable'=>'Tóm tắt :','input'=>$synopsis,'style'=>'padding-left:175px'),
+                        array('lable'=>'Nội dung :','input'=>$content,'style'=>'padding-left:175px'),                        
+                    );
+                    
+  //In thong bao loi
+   if(count($this->messageError)>0){
+       $error = $this->formErrors($this->messageError,array('id'=>'errors'));
+   }
+?>
+<form name="appForm" method="post" action="" enctype="multipart/form-data">
+                        <?php echo $this->render('admin-news/toolbar/index.php');?>
+                        <div class="clr"></div>
+                        <?php echo $this->render('admin-news/sublink/index.php');?>
+                        <?php echo $error;?>
+                        <!-- BEGIN: CONTENT -->
+                        <div id="element-box">
+                            <div class="t">
+                                <div class="t">
+                                    <div class="t"></div>
+                                </div>
+                            </div>
+                            <div class="m">
+                                <!-- BEGIN: ELEMENT BOX -->
+								<div id="adminfieldset">
+                                    <div class="adminheader">Detail</div>
+                                   <?php echo $this->partialLoop('rows.php',$arrInput);?>
+                               </div>
+
+                                <!-- Area 4: In du lieu lay tu database -->
+                                
+                                <!-- Area 4: In du lieu lay tu database - End -->
+
+                                <!-- END: ELEMENT BOX -->	
+                              <div class="clr"></div>
+                            </div>
+                            <div class="b">
+                                <div class="b">
+                                    <div class="b"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: 	CONTENT -->
+                    </form>
